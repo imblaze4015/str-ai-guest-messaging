@@ -1,0 +1,76 @@
+{
+  "booking": [
+    "booking_inquiry",
+    "booking_modification",
+    "booking_cancellation",
+    "extension_request",
+    "repeat_booking",
+    "third_party_booking",
+    "id_verification"
+  ],
+  "check_in_out": [
+    "check_in_instructions",
+    "early_check_in",
+    "check_out_instructions",
+    "check_out_confirmation",
+    "late_check_out",
+    "early_check_out"
+  ],
+  "access": [
+    "access_code_issue",
+    "lost_key",
+    "urgent_lockout"
+  ],
+  "property_info": [
+    "amenity_inquiry",
+    "location_accessibility",
+    "directions_parking",
+    "welcome_book_request",
+    "local_disruption"
+  ],
+  "house_rules": [
+    "pet_policy",
+    "extra_guests",
+    "event_request",
+    "commercial_use"
+  ],
+  "maintenance": [
+    "repair_request",
+    "smart_device_issue",
+    "pest_issue",
+    "damage_report"
+  ],
+  "housekeeping": [
+    "cleaning_complaint",
+    "mid_stay_cleaning",
+    "missing_supplies"
+  ],
+  "payments": [
+    "payment_issue",
+    "pricing_discount",
+    "deposit_dispute",
+    "invoice_request"
+  ],
+  "safety": [
+    "medical_emergency",
+    "security_concern",
+    "natural_disaster",
+    "utility_outage"
+  ],
+  "guest_services": [
+    "local_recommendations",
+    "package_delivery",
+    "luggage_storage"
+  ],
+  "complaints_feedback": [
+  "noise_complaint",
+  "review_feedback",
+  "review_extortion"
+  ],
+  "platform_support": [
+  "platform_glitch"
+  ],
+  "other": [
+  "unclear_request"
+  ]
+}
