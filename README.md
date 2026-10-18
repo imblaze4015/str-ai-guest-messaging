@@ -36,6 +36,10 @@ Requests requiring staff assistance are flagged for review and generate Telegram
 - **Docker Compose:** Local n8n environment
 - **Git:** Version control
 
+## Workflow Screenshot
+
+![STR AI Guest Messaging Workflow](assets/workflow-overview.png)
+
 ## Workflow Overview
 ```text
 Guest Message
