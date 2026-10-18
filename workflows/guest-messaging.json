@@ -451,6 +451,64 @@
       ],
       "id": "63cab2a5-7537-4b54-a5be-f25be903fa03",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
+        "text": "=Property name: {{ $('Parse Booking Info').first().json.property_name }}\nGuest name: {{ $('Parse Booking Info').first().json.guest_name }}\nGuest message: {{ $('Parse Booking Info').first().json.guest_message }}\nStatus: {{ $('Prepare Human Review').first().json.status }}\nBot response: {{ $('Generate Guest Response').first().json.text }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3664,
+        32
+      ],
+      "id": "4cad8686-c046-4b5e-900b-b1614491da65",
+      "name": "Send a text message",
+      "webhookId": "0faabd7f-c7fe-43ce-859f-785ac07e49d9",
+      "credentials": {
+        "telegramApi": {
+          "id": "YOUR_CREDENTIAL_ID",
+          "name": "API account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1deff724-1262-4f38-a5b2-f7eb28bb27bb",
+              "name": "status",
+              "type": "string",
+              "value": "={{ $('Prepare Human Review').first().json.status }}"
+            },
+            {
+              "id": "e0159ebf-f369-4ca8-ad37-7fca1a6add05",
+              "name": "guest_response",
+              "type": "string",
+              "value": "={{ $('Prepare Human Review').first().json.guest_response }}"
+            },
+            {
+              "id": "37a044be-3fd0-4e68-9953-69f0fe278b72",
+              "name": "requires_attention",
+              "type": "boolean",
+              "value": "={{ $('Prepare Human Review').first().json.requires_attention }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        3936,
+        16
+      ],
+      "id": "464ed843-8442-499a-ad99-8bf330d77d80",
+      "name": "Restore Guest Response"
     }
   ],
   "pinData": {},
@@ -658,12 +716,29 @@
     },
     "Prepare Human Review": {
       "main": [
-        []
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "Edit Fields": {
       "main": [
         []
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        [
+          {
+            "node": "Restore Guest Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -672,7 +747,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "09a2aff9-6e3a-4f25-be5a-545380ef19a4",
+  "versionId": "c21b98ba-6d35-4aa4-aa58-981c7aa08471",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "5ab5a879a4f57dfd980a008e26364d5e5f64be727b00806aee99f16a6cb9d122"
