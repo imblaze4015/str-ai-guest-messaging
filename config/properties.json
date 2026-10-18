@@ -1,0 +1,10 @@
+{
+  "Sunrise Villa": {
+    "check_in_time": "3:00 PM",
+    "check_out_time": "11:00 AM",
+    "pets_allowed": false,
+    "smoking_allowed": false,
+    "wifi_name": "SunriseVilla_Guest",
+    "wifi_password": "demo-password-123"
+  }
+}
