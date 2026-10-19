@@ -194,6 +194,38 @@ Requests needing staff assistance should also trigger a Telegram notification.
 
 ## Development Status
 
-Core workflow functionality has been implemented and tested locally.
+## Test Results
 
-Portfolio documentation, reproducible setup instructions, and broader testing are in progress.
+The following scenarios were tested successfully in the
+local n8n environment.
+
+| Test Scenario | Expected Behavior | Result |
+|---|---|---|
+| Normal check-in inquiry | Generate automated response | PASS |
+| Early check-in request | Route to human review and notify manager | PASS |
+| Invalid AI classification | Force human review | PASS |
+| Telegram notification failure | Continue processing and return guest response | PASS |
+| Empty guest message | Return validation error | PASS |
+| Fictional Wi-Fi inquiry | Provide property-specific Wi-Fi information | PASS |
+
+## Development Status
+
+**Status: Completed Portfolio Prototype**
+
+The core AI Guest Messaging Assistant has been implemented,
+tested locally, and documented.
+
+The project demonstrates:
+
+- AI-powered guest message classification
+- Python-based classification validation
+- Property-specific response generation
+- Automated and human-review routing
+- Telegram manager notifications
+- Basic error handling and input validation
+- Git version control
+
+This is a functional portfolio demonstration using
+fictional property data and simulated guest messages.
+
+Production Airbnb/Vrbo integration is not included.
