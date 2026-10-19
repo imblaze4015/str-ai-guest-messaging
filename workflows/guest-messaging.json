@@ -134,7 +134,7 @@
     {
       "parameters": {
         "language": "pythonNative",
-        "pythonCode": "data = _items[0][\"json\"]\n\nrequests = data[\"output\"][\"requests\"]\ncategories = data[\"categories\"]\n\nfor request in requests:\n    category = request[\"category\"]\n    subcategory = request[\"subcategory\"]\n\n    if category in categories and subcategory in categories[category]:\n        request[\"valid\"] = True\n    else:\n        request[\"valid\"] = False\n\nreturn [\n  {\n    \"json\": {\n      \"requests\": requests,\n      \"requires_attention\": data[\"output\"][\"requires_attention\"]\n    }\n  }\n]"
+        "pythonCode": "data = _items[0][\"json\"]\n\nrequests = data[\"output\"][\"requests\"]\ncategories = data[\"categories\"]\n\nfor request in requests:\n    category = request[\"category\"]\n    subcategory = request[\"subcategory\"]\n\n    if category in categories and subcategory in categories[category]:\n        request[\"valid\"] = True\n    else:\n        request[\"valid\"] = False\n\nreturn [\n  {\n    \"json\": {\n      \"requests\": requests,\n      \"requires_attention\": data[\"output\"][\"requires_attention\"] or any(\n      not request[\"valid\"] for request in requests)\n    }\n  }\n]"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -269,8 +269,8 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
       "typeVersion": 1,
       "position": [
-        2936,
-        344
+        2944,
+        352
       ],
       "id": "83be9bb4-1d03-4695-9547-3ccee0e4c703",
       "name": "Groq Chat Model1",
@@ -360,7 +360,7 @@
           "conditions": [
             {
               "id": "5d1d8ba4-657f-4e90-93e9-d13993d040f8",
-              "leftValue": "={{ $('Categorize Message').first().json.output.requires_attention }}",
+              "leftValue": "={{ $('Validate AI Classification').first().json.requires_attention }}",
               "rightValue": "",
               "operator": {
                 "type": "boolean",
@@ -402,7 +402,7 @@
               "id": "916006c5-c8d5-42f5-b37f-c13f0e54436f",
               "name": "requires_attention",
               "type": "boolean",
-              "value": "={{ $('Categorize Message').first().json.output.requires_attention }}"
+              "value": "={{ $('Validate AI Classification').first().json.requires_attention }}"
             }
           ]
         },
@@ -416,41 +416,6 @@
       ],
       "id": "daeea3b2-7cc2-4558-b413-fba1a212a0aa",
       "name": "Prepare Human Review"
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "38165899-e416-44dd-a8e6-6be8a3d6fcc6",
-              "name": "status",
-              "type": "string",
-              "value": "ready"
-            },
-            {
-              "id": "8bd698ae-1b7f-4fbc-9cc9-8a00bc9ab256",
-              "name": "guest_response",
-              "type": "string",
-              "value": "={{ $json.text }}"
-            },
-            {
-              "id": "949f5f18-1730-4f4c-b08b-f93fcec809f1",
-              "name": "requires_attention",
-              "type": "boolean",
-              "value": "={{ $('Categorize Message').first().json.output.requires_attention }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.5,
-      "position": [
-        3440,
-        208
-      ],
-      "id": "63cab2a5-7537-4b54-a5be-f25be903fa03",
-      "name": "Edit Fields"
     },
     {
       "parameters": {
@@ -509,6 +474,41 @@
       ],
       "id": "464ed843-8442-499a-ad99-8bf330d77d80",
       "name": "Restore Guest Response"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "38165899-e416-44dd-a8e6-6be8a3d6fcc6",
+              "name": "status",
+              "type": "string",
+              "value": "ready"
+            },
+            {
+              "id": "8bd698ae-1b7f-4fbc-9cc9-8a00bc9ab256",
+              "name": "guest_response",
+              "type": "string",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "id": "949f5f18-1730-4f4c-b08b-f93fcec809f1",
+              "name": "requires_attention",
+              "type": "boolean",
+              "value": "={{ $('Validate AI Classification').first().json.requires_attention }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        3440,
+        208
+      ],
+      "id": "63cab2a5-7537-4b54-a5be-f25be903fa03",
+      "name": "Prepare Automated Response"
     }
   ],
   "pinData": {},
@@ -707,7 +707,7 @@
         ],
         [
           {
-            "node": "Edit Fields",
+            "node": "Prepare Automated Response",
             "type": "main",
             "index": 0
           }
@@ -723,11 +723,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Edit Fields": {
-      "main": [
-        []
       ]
     },
     "Send a text message": {
@@ -747,6 +742,11 @@
           }
         ]
       ]
+    },
+    "Prepare Automated Response": {
+      "main": [
+        []
+      ]
     }
   },
   "active": true,
@@ -754,7 +754,7 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
-  "versionId": "958d9e4b-17f9-4796-983c-d99de00ac016",
+  "versionId": "688d77f1-09ee-4274-9853-060163caeaa4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "5ab5a879a4f57dfd980a008e26364d5e5f64be727b00806aee99f16a6cb9d122"
