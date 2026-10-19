@@ -419,7 +419,7 @@
     },
     {
       "parameters": {
-        "chatId": "8735202607",
+        "chatId": "YOUR_TELEGRAM_CHAT_ID",
         "text": "=Property name: {{ $('Parse Booking Info').first().json.property_name }}\nGuest name: {{ $('Parse Booking Info').first().json.guest_name }}\nGuest message: {{ $('Parse Booking Info').first().json.guest_message }}\nStatus: {{ $('Prepare Human Review').first().json.status }}\nBot response: {{ $('Generate Guest Response').first().json.text }}",
         "additionalFields": {}
       },
