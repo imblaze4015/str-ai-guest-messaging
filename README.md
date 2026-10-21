@@ -228,4 +228,4 @@ The project demonstrates:
 This is a functional portfolio demonstration using
 fictional property data and simulated guest messages.
 
-Production Airbnb/Vrbo integration is not included.
+Production Airbnb/Vrbo integration is not included.q
